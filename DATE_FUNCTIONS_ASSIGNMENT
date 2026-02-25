@@ -1,0 +1,90 @@
+
+CREATE TABLE Orders (
+    Order_ID NUMBER PRIMARY KEY,
+    Order_Date DATE,
+    Customer_ID VARCHAR2(10),
+    Customer_Name VARCHAR2(100),
+    Product_Category VARCHAR2(100),
+    Product_Name VARCHAR2(150),
+    Quantity NUMBER,
+    Unit_Price NUMBER(10,2),
+    Payment_Mode VARCHAR2(50),
+    Store_Location VARCHAR2(100)
+);
+
+INSERT INTO Orders
+(Order_ID, Order_Date, Customer_ID, Customer_Name, Product_Category, Product_Name, Quantity, Unit_Price, Payment_Mode, Store_Location)
+VALUES
+(1001, DATE '2026-02-01', 'C001', 'Ravi Kumar', 'Electronics', 'Wireless Mouse', 2, 799, 'UPI', 'Bangalore');
+
+INSERT INTO Orders VALUES
+(1002, DATE '2026-02-02', 'C002', 'Sneha Reddy', 'Grocery', 'Basmati Rice 5kg', 1, 650, 'Credit Card', 'Hyderabad');
+
+INSERT INTO Orders VALUES
+(1003, DATE '2026-02-03', 'C003', 'Arjun Mehta', 'Fashion', 'Men''s T-Shirt', 3, 499, 'Cash', 'Chennai');
+
+INSERT INTO Orders VALUES
+(1004, DATE '2026-02-04', 'C004', 'Priya Sharma', 'Electronics', 'Bluetooth Speaker', 1, 1499, 'Debit Card', 'Mumbai');
+
+INSERT INTO Orders VALUES
+(1005, DATE '2026-02-05', 'C005', 'Kiran Rao', 'Home & Kitchen', 'Mixer Grinder', 1, 2499, 'UPI', 'Bangalore');
+
+INSERT INTO Orders VALUES
+(1006, DATE '2026-02-06', 'C006', 'Neha Verma', 'Beauty', 'Face Cream', 4, 299, 'Credit Card', 'Delhi');
+
+INSERT INTO Orders VALUES
+(1007, DATE '2026-02-07', 'C007', 'Rahul Das', 'Grocery', 'Cooking Oil 1L', 5, 180, 'Cash', 'Kolkata');
+
+INSERT INTO Orders VALUES
+(1008, DATE '2026-02-08', 'C008', 'Anjali Nair', 'Fashion', 'Women''s Jeans', 2, 1199, 'UPI', 'Kochi');
+
+INSERT INTO Orders VALUES
+(1009, DATE '2026-02-09', 'C009', 'Suresh Patel', 'Electronics', 'Smartphone', 1, 15999, 'Debit Card', 'Ahmedabad');
+
+INSERT INTO Orders VALUES
+(1010, DATE '2026-02-10', 'C010', 'Meena Iyer', 'Home & Kitchen', 'Pressure Cooker', 1, 1899, 'Credit Card', 'Pune');
+
+COMMIT;
+
+SELECT * FROM ORDERS;
+
+
+-- DATE FUNCTIONS – 20 Questions
+-- Extract year from Order_Date.
+SELECT EXTRACT(YEAR from Order_Date) from ORDERS;
+-- Extract month from Order_Date.
+SELECT EXTRACT(month from Order_Date) from ORDERS;
+-- Extract day from Order_Date.
+SELECT EXTRACT(DAY from Order_Date) from ORDERS;
+-- Find current date.
+SELECT SYSDATE FROM DUAL;
+-- Find current timestamp
+SELECT SYSTIMESTAMP FROM DUAL;
+-- Add 7 days to Order_Date.
+SELECT ORDER_DATE+7 FROM ORDERS;
+-- Subtract 30 days from Order_Date.
+SELECT ORDER_DATE-30 FROM ORDERS;
+-- Find difference between two dates.
+SELECT SYSDATE-ORDER_DATE FROM ORDERS;
+-- Find number of months between two dates.
+SELECT MONTHS_BETWEEN(SYSDATE,ORDER_DATE) FROM ORDERS;
+-- Find last day of the month.
+SELECT ORDER_DATE,LAST_DAY(ORDER_DATE) AS LAST_DAY_OF_MONTH FROM ORDERS;
+-- Get first day of the year.
+SELECT ORDER_DATE,TRUNC(ORDER_DATE,'YEAR') AS FIRST_DAY_OF_YEAR FROM ORDERS;
+-- Format date as 'DD-MM-YYYY'.
+SELECT TO_CHAR(order_date,'DD-MM-YYYY') FROM ORDERS;
+-- Convert string to date.
+SELECT TO_DATE('25-02-2026', 'DD-MM-YYYY') FROM DUAL;
+-- Convert date to string.
+SELECT TO_CHAR(ORDER_DATE, 'DD-MM-YYYY') AS DATE_STRING FROM ORDERS;
+-- Find week number of the year.
+SELECT ORDER_DATE,TO_CHAR(ORDER_DATE, 'WW') AS WEEK_NUMBER FROM ORDERS;
+-- Find day name from date.
+SELECT ORDER_DATE,TO_CHAR(ORDER_DATE, 'DAY') AS DAY_NAME FROM ORDERS;
+-- Find quarter of the year.
+SELECT ORDER_DATE,TO_CHAR(ORDER_DATE, 'Q') FROM ORDERS;
+-- Calculate age from DOB.
+SELECT TRUNC(MONTHS_BETWEEN(SYSDATE,TO_DATE('11-12-2004','DD-MM-YYYY'))/12) AS AGE FROM DUAL;
+-- Find next Monday after a given date.
+SELECT ORDER_DATE,NEXT_DAY(ORDER_DATE, 'MONDAY') AS NEXT_MONDAY FROM ORDERS;
