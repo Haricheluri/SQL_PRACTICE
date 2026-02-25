@@ -1,0 +1,100 @@
+CREATE TABLE ORDERS (
+    ORDER_ID NUMBER PRIMARY KEY,
+    CUSTOMER_NAME VARCHAR2(100),
+    PRODUCT_NAME VARCHAR2(100),
+    PRODUCT_CATEGORY VARCHAR2(50),
+    ORDER_DATE DATE,
+    QUANTITY NUMBER,
+    PRICE NUMBER(10,2),
+    EMAIL VARCHAR2(100)
+);
+
+
+-- Insert sample data (10 rows with email)
+INSERT INTO ORDERS VALUES (1,' Ravi Kumar ','Rice','Grocery',DATE '2025-01-10',10,500,'ravi@gmail.com');
+INSERT INTO ORDERS VALUES (2,'Anita Sharma','Wheat','Grocery',DATE '2025-01-11',5,250,'anita@gmail.com');
+INSERT INTO ORDERS VALUES (3,'Suresh','Rice Bag','Grocery',DATE '2025-01-12',2,900,'suresh@gmail.com');
+INSERT INTO ORDERS VALUES (4,'Priya','Sugar','Grocery',DATE '2025-01-13',8,400,'priya@gmail.com');
+INSERT INTO ORDERS VALUES (5,'Rahul','Laptop','Electronics',DATE '2025-01-14',1,55000,'rahul@gmail.com');
+INSERT INTO ORDERS VALUES (6,'Kiran','Mobile','Electronics',DATE '2025-01-15',2,30000,'kiran@gmail.com');
+INSERT INTO ORDERS VALUES (7,'Meena','Oil','Grocery',DATE '2025-01-16',3,450,'meena@gmail.com');
+INSERT INTO ORDERS VALUES (8,'Arjun','Headphones','Electronics',DATE '2025-01-17',4,2000,'arjun@gmail.com');
+INSERT INTO ORDERS VALUES (9,'Lakshmi','Rice Premium','Grocery',DATE '2025-01-18',6,720,'lakshmi@gmail.com');
+INSERT INTO ORDERS VALUES (10,'Vikram','Keyboard','Electronics',DATE '2025-01-19',2,1500,'vikram@gmail.com');
+
+COMMIT;
+
+-- Write a query to convert all customer names to uppercase.
+SELECT UPPER(CUSTOMER_NAME) FROM ORDERS;
+
+
+-- Extract the first 5 characters from Product_Name.
+SELECT SUBSTR(PRODUCT_NAME,1,5) FROM ORDERS;
+
+-- Find the length of each Customer_Name.
+SELECT LENGTH(CUSTOMER_NAME) AS "LENGTH OF CUSTOMER" FROM ORDERS; 
+
+-- Replace the word "Rice" with "Premium Rice" in Product_Name.
+SELECT REPLACE(UPPER(PRODUCT_NAME),'RICE','PREMIUM RICE') FROM ORDERS;
+
+-- Remove leading and trailing spaces from Customer_Name.
+select trim(customer_name) from orders;
+
+-- Concatenate First_Name and Last_Name as Full_Name.
+select CONCAT(CUSTOMER_NAME,PRODUCT_NAME ) as "CUSTOMER-PRODUCT" from orders;
+
+-- Find customers whose names start with 'A'.
+select * from orders where substr(CUSTOMER_NAME,1,1)='A';
+
+-- Extract the domain name from Email_ID.
+
+
+-- Find the position of '@' in Email_ID.
+select instr(EMAIL,'@')  from ORDERS;
+
+-- Reverse the Product_Name.
+select reverse(product_name) as reverse_product_name from orders;
+
+-- Convert the first letter of each word in Product_Name to uppercase.
+select initcap(PRODUCT_NAME) from orders; 
+
+SELECT UPPER(SUBSTR(PRODUCT_NAME,1,1)) ||
+       SUBSTR(PRODUCT_NAME,2) AS FORMATTED_NAME
+FROM ORDERS;
+-- Extract the last 3 characters from Order_ID.
+select substr(order_id,-3) from ORDERS;
+
+-- Count how many times letter 'a' appears in Customer_Name.
+SELECT SUM( LENGTH(LOWER(CUSTOMER_NAME)) - LENGTH(REPLACE(LOWER(CUSTOMER_NAME),'a',''))) AS TOTAL_A
+FROM ORDERS;
+
+
+-- Mask the last 4 digits of a phone number.
+select  '****'||substr(EMAIL,4,length(EMAIL)-4) as masked_number from orders;
+
+
+-- Split Full_Name into First_Name and Last_Name.
+SELECT SUBSTR(TRIM(CUSTOMER_NAME), 1,
+              INSTR(TRIM(CUSTOMER_NAME), ' ') - 1) AS First_Name,
+       SUBSTR(TRIM(CUSTOMER_NAME),
+              INSTR(TRIM(CUSTOMER_NAME), ' ') + 1) AS Last_Name
+FROM ORDERS;
+
+-- Compare two columns ignoring case sensitivity.
+select * from orders where upper(CUSTOMER_NAME) = UPPER(PRODUCT_NAME);
+
+-- Find customers whose name contains 'kumar'.
+select * from ORDERS where lower(CUSTOMER_NAME) like '%kumar%';
+
+-- Pad Order_ID with leading zeros to make it 6 digits.
+SELECT ORDER_ID,
+       LPAD(ORDER_ID, 6, '0') AS PADDED_ORDER_ID
+FROM ORDERS;
+
+
+-- Extract substring between two characters.
+SELECT EMAIL,
+       SUBSTR(EMAIL,
+              INSTR(EMAIL,'@') + 1,
+              INSTR(EMAIL,'.') - INSTR(EMAIL,'@') - 1) AS BETWEEN_TEXT
+FROM ORDERS;
